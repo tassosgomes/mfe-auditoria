@@ -17,12 +17,12 @@
 |  - logApiIntent()      - logApiError()                        |
 |                                                               |
 |  +-------------------+      +------------------------------+  |
-|  |  Fila Local       |      |  Worker de Reenvio          |  |
-|  |  (IndexedDB)      |      |  (Timer / Web Worker)       |  |
-|  |                   |      |                              |  |
-|  |  - enqueue(event) | ---> |  - flushQueue()             |  |
-|  |  - listPending()  |      |  - backoff exponencial      |  |
-|  +-------------------+      |  - circuit breaker          |  |
+|  |  Fila Local       |      |  Worker de Reenvio          |   |
+|  |  (IndexedDB)      |      |  (Timer / Web Worker)       |   |
+|  |                   |      |                             |   |
+|  |  - enqueue(event) | ---> |  - flushQueue()             |   |
+|  |  - listPending()  |      |  - backoff exponencial      |   |
+|  +-------------------+      |  - circuit breaker          |   |
 |                             +------------------------------+  |
 +---------------------------------------------------------------+
                             |

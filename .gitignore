@@ -1,0 +1,28 @@
+# Node
+node_modules/
+**/node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build artifacts
+/dist/
+/build/
+coverage/
+**/dist/
+**/build/
+**/coverage/
+
+# Vite/Vitest
+.vite/
+.vitest/
+
+# .NET
+**/bin/
+**/obj/
+
+# OS
+.DS_Store
+Thumbs.db
