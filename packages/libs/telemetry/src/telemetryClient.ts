@@ -1,10 +1,17 @@
 import { localQueue } from "./localQueue";
+import {
+  configureWorker,
+  flushQueue as workerFlushQueue,
+  startWorker,
+  stopWorker,
+} from "./internal/retryWorker";
 import type { AuditEvent, FlushResult, QueueStatus, TelemetryConfig } from "./types";
 
 const DEFAULTS = {
   batchSize: 50,
   retryIntervalMs: 15000,
   maxRetries: 5,
+  circuitBreakerPauseMs: 120000,
 };
 
 type TokenPayload = {
@@ -18,6 +25,7 @@ type InternalConfig = {
   batchSize: number;
   retryIntervalMs: number;
   maxRetries: number;
+  circuitBreakerPauseMs: number;
   getKeycloakToken?: () => TokenPayload | null;
 };
 
@@ -136,11 +144,15 @@ export const initTelemetry = (input: TelemetryConfig): void => {
     throw new Error("[Telemetry] apiBaseUrl é obrigatório para inicialização.");
   }
 
+  stopWorker();
+
   config = {
     apiBaseUrl: input.apiBaseUrl,
     batchSize: input.batchSize ?? DEFAULTS.batchSize,
     retryIntervalMs: input.retryIntervalMs ?? DEFAULTS.retryIntervalMs,
     maxRetries: input.maxRetries ?? DEFAULTS.maxRetries,
+    circuitBreakerPauseMs:
+      input.circuitBreakerPauseMs ?? DEFAULTS.circuitBreakerPauseMs,
     getKeycloakToken: input.getKeycloakToken,
   };
 
@@ -148,6 +160,27 @@ export const initTelemetry = (input: TelemetryConfig): void => {
   lastFlushAt = undefined;
   sessionEventsSent = 0;
 
+  configureWorker({
+    apiBaseUrl: config.apiBaseUrl,
+    baseIntervalMs: config.retryIntervalMs,
+    maxRetries: config.maxRetries,
+    circuitBreakerPauseMs: config.circuitBreakerPauseMs,
+    batchSize: config.batchSize,
+    onApiOnline: () => {
+      apiStatus = "online";
+    },
+    onApiOffline: () => {
+      apiStatus = "offline";
+    },
+    onEventsSent: (count) => {
+      sessionEventsSent += count;
+    },
+    onFlushComplete: () => {
+      lastFlushAt = new Date().toISOString();
+    },
+  });
+
+  startWorker();
   logInfo("Telemetry inicializada.");
 };
 
@@ -203,27 +236,7 @@ export const flushQueue = async (): Promise<FlushResult> => {
     return { sent: 0, failed: 0, remaining: 0 };
   }
 
-  const pending = await localQueue.dequeueBatch(currentConfig.batchSize);
-  if (pending.length === 0) {
-    return { sent: 0, failed: 0, remaining: 0 };
-  }
-
-  try {
-    await sendEvents(pending.map((item) => item.event));
-    const idsToDelete = pending
-      .map((item) => item.id)
-      .filter((id): id is number => typeof id === "number");
-    await localQueue.deleteBatch(idsToDelete);
-    lastFlushAt = new Date().toISOString();
-    const remaining = await localQueue.count();
-    return { sent: pending.length, failed: 0, remaining };
-  } catch (error) {
-    apiStatus = "offline";
-    lastFlushAt = new Date().toISOString();
-    logWarn("Falha ao reenviar fila:", error);
-    const remaining = await localQueue.count();
-    return { sent: 0, failed: pending.length, remaining };
-  }
+  return workerFlushQueue();
 };
 
 export const getQueueStatus = async (): Promise<QueueStatus> => {

@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 parallelizable: false
 blocked_by: ["4.0"]
 ---
@@ -29,14 +29,14 @@ Implementar o worker (baseado em timer) que periodicamente verifica a fila local
 
 ## Subtarefas
 
-- [ ] 5.1 Criar `src/internal/retryWorker.ts`
-- [ ] 5.2 Implementar timer com intervalo configurável (default: 15s)
-- [ ] 5.3 Implementar função `startWorker()`:
+- [x] 5.1 Criar `src/internal/retryWorker.ts`
+- [x] 5.2 Implementar timer com intervalo configurável (default: 15s)
+- [x] 5.3 Implementar função `startWorker()`:
   - Iniciar timer de verificação periódica
   - Prevenir múltiplas instâncias do worker
-- [ ] 5.4 Implementar função `stopWorker()`:
+- [x] 5.4 Implementar função `stopWorker()`:
   - Parar timer e limpar recursos
-- [ ] 5.5 Implementar backoff exponencial:
+- [x] 5.5 Implementar backoff exponencial:
   ```
   tentativa 1: 15s
   tentativa 2: 30s
@@ -44,19 +44,19 @@ Implementar o worker (baseado em timer) que periodicamente verifica a fila local
   tentativa 4: 120s
   tentativa 5+: circuit breaker
   ```
-- [ ] 5.6 Implementar circuit breaker:
+- [x] 5.6 Implementar circuit breaker:
   - Após 5 falhas consecutivas, pausar reenvios por 2 minutos
   - Reset do contador após sucesso
-- [ ] 5.7 Implementar função `flushQueue()`:
+- [x] 5.7 Implementar função `flushQueue()`:
   - Disparar reenvio imediato (ignora timer)
   - Retornar `FlushResult` com contagem de enviados/falhos/restantes
-- [ ] 5.8 Implementar processamento em batch:
+- [x] 5.8 Implementar processamento em batch:
   - Buscar até 50 eventos da fila por vez
   - Enviar como array para API
   - Remover apenas os bem-sucedidos
-- [ ] 5.9 Implementar health check da API antes de enviar batch
-- [ ] 5.10 Escrever testes unitários com mock de timer
-- [ ] 5.11 Integrar worker com telemetryClient (iniciar automaticamente)
+- [x] 5.9 Implementar health check da API antes de enviar batch
+- [x] 5.10 Escrever testes unitários com mock de timer
+- [x] 5.11 Integrar worker com telemetryClient (iniciar automaticamente)
 
 ## Detalhes de Implementação
 
@@ -174,15 +174,15 @@ export async function flushQueue(): Promise<FlushResult> {
 
 ## Critérios de Sucesso
 
-- [ ] Worker inicia automaticamente com `initTelemetry()`
-- [ ] Worker executa a cada 15 segundos (configurável)
-- [ ] Backoff exponencial aplicado corretamente (15s → 30s → 60s → 120s)
-- [ ] Circuit breaker ativa após 5 falhas consecutivas
-- [ ] Circuit breaker reseta após 2 minutos de pausa
-- [ ] Circuit breaker reseta após um sucesso
-- [ ] `flushQueue()` pode ser chamada manualmente e retorna `FlushResult`
-- [ ] Batch de até 50 eventos enviados por vez
-- [ ] Eventos bem-sucedidos são removidos da fila
-- [ ] Eventos com falha permanecem na fila
-- [ ] Logs estruturados para debug: `[Telemetry] ...`
-- [ ] Testes unitários passando com mocks de timer e fetch
+- [x] Worker inicia automaticamente com `initTelemetry()`
+- [x] Worker executa a cada 15 segundos (configurável)
+- [x] Backoff exponencial aplicado corretamente (15s → 30s → 60s → 120s)
+- [x] Circuit breaker ativa após 5 falhas consecutivas
+- [x] Circuit breaker reseta após 2 minutos de pausa
+- [x] Circuit breaker reseta após um sucesso
+- [x] `flushQueue()` pode ser chamada manualmente e retorna `FlushResult`
+- [x] Batch de até 50 eventos enviados por vez
+- [x] Eventos bem-sucedidos são removidos da fila
+- [x] Eventos com falha permanecem na fila
+- [x] Logs estruturados para debug: `[Telemetry] ...`
+- [x] Testes unitários passando com mocks de timer e fetch

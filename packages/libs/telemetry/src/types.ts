@@ -19,6 +19,7 @@ export interface TelemetryConfig {
   batchSize?: number;
   retryIntervalMs?: number;
   maxRetries?: number;
+  circuitBreakerPauseMs?: number;
   getKeycloakToken?: () =>
     | {
         sub: string;

@@ -1,10 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
 
-type FetchResponse = {
-  ok: boolean;
-  status: number;
-};
-
 const waitForAsync = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 const createToken = () => ({
@@ -33,7 +28,7 @@ describe("telemetryClient", () => {
 
   it("envia evento de tela com sucesso", async () => {
     vi.resetModules();
-    const mockFetch = vi.fn<[], Promise<FetchResponse>>().mockResolvedValue({
+    const mockFetch = vi.fn().mockResolvedValue({
       ok: true,
       status: 200,
     });
@@ -73,7 +68,7 @@ describe("telemetryClient", () => {
 
   it("ignora envio quando token não está disponível", async () => {
     vi.resetModules();
-    const mockFetch = vi.fn<[], Promise<FetchResponse>>().mockResolvedValue({
+    const mockFetch = vi.fn().mockResolvedValue({
       ok: true,
       status: 200,
     });
@@ -93,7 +88,7 @@ describe("telemetryClient", () => {
 
   it("registra navegação com metadata e screenId destino", async () => {
     vi.resetModules();
-    const mockFetch = vi.fn<[], Promise<FetchResponse>>().mockResolvedValue({
+    const mockFetch = vi.fn().mockResolvedValue({
       ok: true,
       status: 200,
     });
@@ -116,7 +111,7 @@ describe("telemetryClient", () => {
 
   it("inclui detalhes do erro em logApiError", async () => {
     vi.resetModules();
-    const mockFetch = vi.fn<[], Promise<FetchResponse>>().mockResolvedValue({
+    const mockFetch = vi.fn().mockResolvedValue({
       ok: true,
       status: 200,
     });
@@ -139,9 +134,21 @@ describe("telemetryClient", () => {
 
   it("reenvia eventos pendentes com flushQueue", async () => {
     vi.resetModules();
-    const mockFetch = vi.fn<[], Promise<FetchResponse>>()
-      .mockRejectedValueOnce(new Error("offline"))
-      .mockResolvedValueOnce({ ok: true, status: 200 });
+    let eventsCallCount = 0;
+    const mockFetch = vi.fn((input: RequestInfo) => {
+      const url = String(input);
+      if (url.endsWith("/audit/v1/health")) {
+        return Promise.resolve({ ok: true, status: 200 });
+      }
+      if (url.endsWith("/audit/v1/events")) {
+        if (eventsCallCount === 0) {
+          eventsCallCount += 1;
+          return Promise.reject(new Error("offline"));
+        }
+        return Promise.resolve({ ok: true, status: 200 });
+      }
+      return Promise.resolve({ ok: true, status: 200 });
+    });
     vi.stubGlobal("fetch", mockFetch);
 
     const client = await import("./telemetryClient");
