@@ -27,22 +27,22 @@ Implementar o Micro Frontend de usuários que demonstra a integração com a bib
 
 ## Subtarefas
 
-- [ ] 8.1 Configurar projeto em `apps/mfe-users/`
-- [ ] 8.2 Configurar Module Federation para expor `./App`
-- [ ] 8.3 Criar estrutura de rotas internas:
+- [x] 8.1 Configurar projeto em `apps/mfe-users/`
+- [x] 8.2 Configurar Module Federation para expor `./App`
+- [x] 8.3 Criar estrutura de rotas internas:
   - `/` → Lista de usuários
   - `/:id` → Detalhe do usuário
-- [ ] 8.4 Criar página `src/pages/UsersList.tsx`:
+- [x] 8.4 Criar página `src/pages/UsersList.tsx`:
   - Chamar `logScreenAccess("users-list")` no mount
   - Exibir lista mockada de usuários
   - Links para detalhe de cada usuário
-- [ ] 8.5 Criar página `src/pages/UserDetail.tsx`:
+- [x] 8.5 Criar página `src/pages/UserDetail.tsx`:
   - Chamar `logScreenAccess("users-details", { userId })` no mount
   - Exibir dados mockados do usuário
   - Link para voltar à lista
-- [ ] 8.6 Criar `src/App.tsx` com Routes internas
-- [ ] 8.7 Importar e usar biblioteca de telemetria
-- [ ] 8.8 Estilização básica
+- [x] 8.6 Criar `src/App.tsx` com Routes internas
+- [x] 8.7 Importar e usar biblioteca de telemetria
+- [x] 8.8 Estilização básica
 - [ ] 8.9 Testar integração com Host
 
 ## Detalhes de Implementação
