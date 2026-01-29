@@ -34,9 +34,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null)
   const telemetryInitialized = useRef(false)
   const mountedRef = useRef(true)
+  const initializingRef = useRef(false)
 
   useEffect(() => {
     mountedRef.current = true
+
+    // Evita múltiplas inicializações (importante para StrictMode)
+    if (initializingRef.current) {
+      return
+    }
+    initializingRef.current = true
 
     const setupEvents = () => {
       keycloak.onTokenExpired = async () => {

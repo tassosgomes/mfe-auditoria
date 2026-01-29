@@ -1,3 +1,4 @@
+using System.Text.Json;
 using AuditApi.Models;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
@@ -35,7 +36,7 @@ public class AuditService
             UserId = request.UserId,
             UserEmail = request.UserEmail,
             UserName = request.UserName,
-            Metadata = request.Metadata,
+            Metadata = ConvertMetadata(request.Metadata),
             ReceivedAt = receivedAt
         }).ToList();
 
@@ -44,6 +45,30 @@ public class AuditService
         _logger.LogInformation("Persisted {Count} audit events", auditEvents.Count);
 
         return auditEvents.Count;
+    }
+
+    private static Dictionary<string, object>? ConvertMetadata(Dictionary<string, JsonElement>? metadata)
+    {
+        if (metadata == null) return null;
+
+        return metadata.ToDictionary(
+            kvp => kvp.Key,
+            kvp => ConvertJsonElement(kvp.Value)
+        );
+    }
+
+    private static object ConvertJsonElement(JsonElement element)
+    {
+        return element.ValueKind switch
+        {
+            JsonValueKind.String => element.GetString()!,
+            JsonValueKind.Number => element.TryGetInt64(out var l) ? l : element.GetDouble(),
+            JsonValueKind.True => true,
+            JsonValueKind.False => false,
+            JsonValueKind.Array => element.EnumerateArray().Select(ConvertJsonElement).ToList(),
+            JsonValueKind.Object => element.EnumerateObject().ToDictionary(p => p.Name, p => ConvertJsonElement(p.Value)),
+            _ => element.ToString()
+        };
     }
 
     public async Task<PagedResponse<AuditEvent>> GetEventsAsync(int page, int size, CancellationToken cancellationToken = default)

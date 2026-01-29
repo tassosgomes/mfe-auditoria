@@ -18,6 +18,11 @@ export default defineConfig({
   server: {
     port: 5175,
   },
+  preview: {
+    port: 5175,
+    strictPort: true,
+    cors: true,
+  },
   build: {
     target: 'esnext',
     minify: false,

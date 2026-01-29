@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 namespace AuditApi.Models;
 
 public record AuditEventRequest
@@ -14,5 +16,5 @@ public record AuditEventRequest
 
     public string? UserName { get; init; }
 
-    public Dictionary<string, object>? Metadata { get; init; }
+    public Dictionary<string, JsonElement>? Metadata { get; init; }
 }

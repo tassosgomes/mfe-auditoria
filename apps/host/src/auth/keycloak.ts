@@ -19,17 +19,37 @@ export const keycloak = new Keycloak({
   clientId: 'mfe-host',
 })
 
+let keycloakInitialized = false
+let initPromise: Promise<boolean> | null = null
+
 export async function initKeycloak(): Promise<boolean> {
-  try {
-    return await keycloak.init({
-      onLoad: 'login-required',
-      pkceMethod: 'S256',
-      checkLoginIframe: false,
-    })
-  } catch (error) {
-    console.error('Falha ao inicializar Keycloak:', error)
-    return false
+  // Se já foi inicializado com sucesso, retorna true
+  if (keycloakInitialized && keycloak.authenticated !== undefined) {
+    return keycloak.authenticated
   }
+
+  // Se já existe uma inicialização em andamento, aguarda ela
+  if (initPromise) {
+    return initPromise
+  }
+
+  initPromise = (async () => {
+    try {
+      const authenticated = await keycloak.init({
+        onLoad: 'login-required',
+        pkceMethod: 'S256',
+        checkLoginIframe: false,
+      })
+      keycloakInitialized = true
+      return authenticated
+    } catch (error) {
+      console.error('Falha ao inicializar Keycloak:', error)
+      initPromise = null
+      return false
+    }
+  })()
+
+  return initPromise
 }
 
 export function getUserFromToken(): AuthUser | null {

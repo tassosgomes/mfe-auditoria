@@ -1,0 +1,31 @@
+# Dependências
+**/node_modules
+**/.pnpm-store
+
+# Build outputs
+**/dist
+**/build
+**/bin
+**/obj
+
+# Arquivos de desenvolvimento
+**/.git
+**/.gitignore
+**/.vscode
+**/.idea
+**/*.md
+**/README.md
+
+# Arquivos de teste
+**/coverage
+**/*.test.*
+**/*.spec.*
+**/vitest.config.*
+
+# Outros
+**/.env
+**/.env.*
+**/docker-compose*.yml
+**/*.log
+**/tmp
+**/.DS_Store

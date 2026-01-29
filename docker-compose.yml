@@ -18,5 +18,42 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  api:
+    build:
+      context: ./services/audit-api
+      dockerfile: Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - Mongo__ConnectionString=mongodb://mongodb:27017
+      - Mongo__DatabaseName=auditoria
+      - Mongo__CollectionName=audit_events
+    depends_on:
+      - mongodb
+
+  host:
+    build:
+      context: .
+      dockerfile: apps/host/Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+  mfe-users:
+    build:
+      context: .
+      dockerfile: apps/mfe-users/Dockerfile
+    ports:
+      - "5174:80"
+
+  mfe-orders:
+    build:
+      context: .
+      dockerfile: apps/mfe-orders/Dockerfile
+    ports:
+      - "5175:80"
+
 volumes:
   mongo_data:
