@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 parallelizable: true
 blocked_by: ["3.0", "7.0"]
 ---
@@ -27,23 +27,23 @@ Implementar o Micro Frontend de pedidos que demonstra a integração com a bibli
 
 ## Subtarefas
 
-- [ ] 9.1 Configurar projeto em `apps/mfe-orders/`
-- [ ] 9.2 Configurar Module Federation para expor `./App`
-- [ ] 9.3 Criar estrutura de rotas internas:
+- [x] 9.1 Configurar projeto em `apps/mfe-orders/`
+- [x] 9.2 Configurar Module Federation para expor `./App`
+- [x] 9.3 Criar estrutura de rotas internas:
   - `/` → Lista de pedidos
   - `/:id` → Detalhe do pedido
-- [ ] 9.4 Criar página `src/pages/OrdersList.tsx`:
+- [x] 9.4 Criar página `src/pages/OrdersList.tsx`:
   - Chamar `logScreenAccess("orders-list")` no mount
   - Exibir lista mockada de pedidos
   - Links para detalhe de cada pedido
-- [ ] 9.5 Criar página `src/pages/OrderDetail.tsx`:
+- [x] 9.5 Criar página `src/pages/OrderDetail.tsx`:
   - Chamar `logScreenAccess("orders-details", { orderId })` no mount
   - Exibir dados mockados do pedido
   - Link para voltar à lista
-- [ ] 9.6 Criar `src/App.tsx` com Routes internas
-- [ ] 9.7 Importar e usar biblioteca de telemetria
-- [ ] 9.8 Estilização básica
-- [ ] 9.9 Testar integração com Host
+- [x] 9.6 Criar `src/App.tsx` com Routes internas
+- [x] 9.7 Importar e usar biblioteca de telemetria
+- [x] 9.8 Estilização básica
+- [x] 9.9 Testar integração com Host
 
 ## Detalhes de Implementação
 
