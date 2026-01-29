@@ -30,7 +30,7 @@ Realizar a integração completa de todos os componentes do sistema e validar os
 
 ### Integração
 
-- [ ] 11.1 Criar script de inicialização completa (`npm run start:all` ou similar)
+- [x] 11.1 Criar script de inicialização completa (`npm run start:all` ou similar)
 - [ ] 11.2 Verificar que todos os serviços iniciam sem conflitos de porta:
   - Keycloak: 8080
   - MongoDB: 27017
@@ -126,7 +126,7 @@ Realizar a integração completa de todos os componentes do sistema e validar os
 
 ### Documentação
 
-- [ ] 11.19 Criar/Atualizar README.md principal com:
+- [x] 11.19 Criar/Atualizar README.md principal com:
   - Visão geral da arquitetura
   - Pré-requisitos (Node.js, .NET, Docker)
   - Comandos de instalação
@@ -134,7 +134,7 @@ Realizar a integração completa de todos os componentes do sistema e validar os
   - Credenciais de teste
   - Estrutura de pastas
   
-- [ ] 11.20 Documentar troubleshooting comum:
+- [x] 11.20 Documentar troubleshooting comum:
   - Portas em uso
   - Keycloak não inicia
   - MFE não carrega
