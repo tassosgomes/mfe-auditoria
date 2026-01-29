@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 parallelizable: true
 blocked_by: ["1.0"]
 ---
@@ -32,40 +32,40 @@ Implementar a API REST de auditoria em .NET 8 utilizando Minimal API. A API rece
 
 ## Subtarefas
 
-- [ ] 6.1 Criar projeto .NET 8 em `services/audit-api/AuditApi`
-- [ ] 6.2 Criar projeto de testes em `services/audit-api/AuditApi.Tests`
-- [ ] 6.3 Configurar MongoDB Driver (MongoDB.Driver)
-- [ ] 6.4 Criar modelos em `Models/`:
+- [x] 6.1 Criar projeto .NET 8 em `services/audit-api/AuditApi`
+- [x] 6.2 Criar projeto de testes em `services/audit-api/AuditApi.Tests`
+- [x] 6.3 Configurar MongoDB Driver (MongoDB.Driver)
+- [x] 6.4 Criar modelos em `Models/`:
   - `AuditEventRequest` (record)
   - `BatchAuditRequest` (record)
   - `BatchAuditResponse` (record)
   - `AuditEvent` (documento MongoDB)
-- [ ] 6.5 Implementar `Services/AuditService.cs`:
+- [x] 6.5 Implementar `Services/AuditService.cs`:
   - Método `SaveEventsAsync(IEnumerable<AuditEventRequest>)`
   - Método `GetEventsAsync(int page, int size)`
-- [ ] 6.6 Implementar `Endpoints/AuditEndpoints.cs`:
+- [x] 6.6 Implementar `Endpoints/AuditEndpoints.cs`:
   - `POST /audit/v1/events` - receber batch
   - `GET /audit/v1/events` - consultar paginado
   - `GET /audit/v1/health` - health check
-- [ ] 6.7 Implementar validação de eventos:
+- [x] 6.7 Implementar validação de eventos:
   - type, screenId, timestamp, userId são obrigatórios
   - Retornar RFC 9457 Problem Details em caso de erro
-- [ ] 6.8 Implementar simulação de instabilidade:
+- [x] 6.8 Implementar simulação de instabilidade:
   - Variável de ambiente `INSTABILITY_RATE` (default: 0.3)
   - ~30% das requisições POST retornam 500
-- [ ] 6.9 Configurar CORS para origens dos MFEs:
+- [x] 6.9 Configurar CORS para origens dos MFEs:
   - `http://localhost:5173` (host)
   - `http://localhost:5174` (mfe-users)
   - `http://localhost:5175` (mfe-orders)
-- [ ] 6.10 Criar índices MongoDB:
+- [x] 6.10 Criar índices MongoDB:
   - `{ timestamp: -1 }`
   - `{ userId: 1, timestamp: -1 }`
   - `{ type: 1, timestamp: -1 }`
   - TTL index: `{ receivedAt: 1 }` com 90 dias
-- [ ] 6.11 Configurar health checks para MongoDB
-- [ ] 6.12 Implementar logs estruturados
-- [ ] 6.13 Escrever testes unitários com xUnit + AwesomeAssertions
-- [ ] 6.14 Documentar API no README do serviço
+- [x] 6.11 Configurar health checks para MongoDB
+- [x] 6.12 Implementar logs estruturados
+- [x] 6.13 Escrever testes unitários com xUnit + AwesomeAssertions
+- [x] 6.14 Documentar API no README do serviço
 
 ## Detalhes de Implementação
 
@@ -164,16 +164,25 @@ await collection.Indexes.CreateOneAsync(new CreateIndexModel<AuditEvent>(indexKe
 
 ## Critérios de Sucesso
 
-- [ ] Projeto .NET 8 compila sem erros
-- [ ] API inicia e responde em `http://localhost:5000`
-- [ ] `POST /audit/v1/events` aceita batch de eventos
-- [ ] `POST /audit/v1/events` retorna 400 para eventos inválidos (RFC 9457)
-- [ ] `POST /audit/v1/events` retorna 500 em ~30% das requisições (configurável)
-- [ ] `GET /audit/v1/health` retorna status OK
-- [ ] `GET /audit/v1/events` retorna eventos paginados
-- [ ] Eventos são persistidos no MongoDB
-- [ ] Índices criados corretamente
-- [ ] TTL de 90 dias configurado
-- [ ] CORS configurado para origens dos MFEs
-- [ ] Logs estruturados funcionando
-- [ ] Testes unitários passando
+- [x] Projeto .NET 8 compila sem erros
+- [x] API inicia e responde em `http://localhost:5000`
+- [x] `POST /audit/v1/events` aceita batch de eventos
+- [x] `POST /audit/v1/events` retorna 400 para eventos inválidos (RFC 9457)
+- [x] `POST /audit/v1/events` retorna 500 em ~30% das requisições (configurável)
+- [x] `GET /audit/v1/health` retorna status OK
+- [x] `GET /audit/v1/events` retorna eventos paginados
+- [x] Eventos são persistidos no MongoDB
+- [x] Índices criados corretamente
+- [x] TTL de 90 dias configurado
+- [x] CORS configurado para origens dos MFEs
+- [x] Logs estruturados funcionando
+- [x] Testes unitários passando
+
+## Checklist de Conclusão
+
+- [x] 6.0 Implementar API REST de Auditoria (.NET 8) ✅ CONCLUÍDA
+  - [x] 6.1 Implementação completada
+  - [x] 6.2 Definição da tarefa, PRD e tech spec validados
+  - [x] 6.3 Análise de regras e conformidade verificadas
+  - [x] 6.4 Revisão de código completada
+  - [x] 6.5 Pronto para deploy

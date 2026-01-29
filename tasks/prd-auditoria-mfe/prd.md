@@ -129,13 +129,13 @@ Organizações precisam auditar o acesso dos usuários às telas de sistemas dis
 **O que faz:** Backend que recebe e persiste eventos de auditoria em MongoDB.
 
 **Requisitos Funcionais:**
-- RF08.1: Implementar endpoint `POST /audit/events` que recebe array de eventos
-- RF08.2: Implementar endpoint `GET /audit/health` que retorna status da API
+- RF08.1: Implementar endpoint `POST /audit/v1/events` que recebe array de eventos
+- RF08.2: Implementar endpoint `GET /audit/v1/health` que retorna status da API
 - RF08.3: Persistir eventos recebidos no MongoDB
 - RF08.4: Simular instabilidade: ~30% das requisições retornam erro 500 (configurável via variável de ambiente)
 - RF08.5: Validar estrutura do evento (type, screenId, timestamp, userId são obrigatórios)
 - RF08.6: Retornar 200 OK para eventos válidos, 400 Bad Request para inválidos
-- RF08.7: Implementar endpoint `GET /audit/events` para consulta de eventos (paginado)
+- RF08.7: Implementar endpoint `GET /audit/v1/events` para consulta de eventos (paginado)
 - RF08.8: Garantir SLA de 99% de disponibilidade
 
 ### RF09 - Integração com Keycloak
