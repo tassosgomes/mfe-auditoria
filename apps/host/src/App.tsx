@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import { AuthProvider } from './auth/AuthProvider'
+import { AuditPanel } from './components/AuditPanel/AuditPanel'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { Navigation } from './components/Navigation'
 import { Home } from './pages/Home'
@@ -52,6 +53,7 @@ function App() {
               />
             </Routes>
           </main>
+          <AuditPanel />
         </div>
       </BrowserRouter>
     </AuthProvider>
