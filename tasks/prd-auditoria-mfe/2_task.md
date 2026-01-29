@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 parallelizable: true
 blocked_by: []
 ---
@@ -27,7 +27,7 @@ Configurar a estrutura de pastas do monorepo e a configuração base do Module F
 
 ## Subtarefas
 
-- [ ] 2.1 Criar estrutura de pastas conforme especificação:
+- [x] 2.1 Criar estrutura de pastas conforme especificação:
   ```
   mfe-auditoria/
   ├── apps/
@@ -39,16 +39,16 @@ Configurar a estrutura de pastas do monorepo e a configuração base do Module F
   └── services/
       └── audit-api/
   ```
-- [ ] 2.2 Inicializar `package.json` raiz com workspaces (npm/yarn/pnpm)
-- [ ] 2.3 Criar projeto Vite base para `apps/host` (porta 5173)
-- [ ] 2.4 Criar projeto Vite base para `apps/mfe-users` (porta 5174)
-- [ ] 2.5 Criar projeto Vite base para `apps/mfe-orders` (porta 5175)
-- [ ] 2.6 Criar projeto TypeScript para `packages/telemetry`
-- [ ] 2.7 Configurar Module Federation no Host (vite.config.ts)
-- [ ] 2.8 Configurar Module Federation nos Remotes (mfe-users, mfe-orders)
-- [ ] 2.9 Configurar shared dependencies: react, react-dom, react-router-dom, @auditoria/telemetry
-- [ ] 2.10 Criar scripts de desenvolvimento (`dev`, `build`, `preview`) no package.json raiz
-- [ ] 2.11 Testar carregamento básico de um remote no host
+- [x] 2.2 Inicializar `package.json` raiz com workspaces (npm/yarn/pnpm)
+- [x] 2.3 Criar projeto Vite base para `apps/host` (porta 5173)
+- [x] 2.4 Criar projeto Vite base para `apps/mfe-users` (porta 5174)
+- [x] 2.5 Criar projeto Vite base para `apps/mfe-orders` (porta 5175)
+- [x] 2.6 Criar projeto TypeScript para `packages/telemetry`
+- [x] 2.7 Configurar Module Federation no Host (vite.config.ts)
+- [x] 2.8 Configurar Module Federation nos Remotes (mfe-users, mfe-orders)
+- [x] 2.9 Configurar shared dependencies: react, react-dom, react-router-dom, @auditoria/telemetry
+- [x] 2.10 Criar scripts de desenvolvimento (`dev`, `build`, `preview`) no package.json raiz
+- [x] 2.11 Testar carregamento básico de um remote no host
 
 ## Detalhes de Implementação
 
@@ -121,11 +121,11 @@ export default defineConfig({
 
 ## Critérios de Sucesso
 
-- [ ] Estrutura de pastas criada conforme especificação
-- [ ] Workspaces configurados e funcionando
-- [ ] `npm install` na raiz instala todas as dependências
-- [ ] Host inicia na porta 5173
-- [ ] mfe-users inicia na porta 5174 e gera `remoteEntry.js`
-- [ ] mfe-orders inicia na porta 5175 e gera `remoteEntry.js`
-- [ ] Host consegue carregar um componente básico do mfe-users via Module Federation
-- [ ] Biblioteca telemetry é reconhecida como shared dependency
+- [x] Estrutura de pastas criada conforme especificação
+- [x] Workspaces configurados e funcionando
+- [x] `npm install` na raiz instala todas as dependências
+- [x] Host inicia na porta 5173
+- [x] mfe-users inicia na porta 5174 e gera `remoteEntry.js`
+- [x] mfe-orders inicia na porta 5175 e gera `remoteEntry.js`
+- [x] Host consegue carregar um componente básico do mfe-users via Module Federation
+- [x] Biblioteca telemetry é reconhecida como shared dependency
