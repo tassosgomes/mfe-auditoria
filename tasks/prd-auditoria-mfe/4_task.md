@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 parallelizable: false
 blocked_by: ["3.0"]
 ---
@@ -30,30 +30,30 @@ Implementar a fila local utilizando IndexedDB (via Dexie.js) para armazenar even
 
 ## Subtarefas
 
-- [ ] 4.1 Adicionar dependência Dexie.js ao package telemetry
-- [ ] 4.2 Criar `src/internal/localQueue.ts` com interface `ILocalQueue`
-- [ ] 4.3 Implementar schema do banco IndexedDB:
+- [x] 4.1 Adicionar dependência Dexie.js ao package telemetry
+- [x] 4.2 Criar `src/internal/localQueue.ts` com interface `ILocalQueue`
+- [x] 4.3 Implementar schema do banco IndexedDB:
   ```typescript
   const db = new Dexie('AuditQueueDB');
   db.version(1).stores({
     pendingEvents: '++id, createdAt'
   });
   ```
-- [ ] 4.4 Implementar função `enqueue(event: AuditEvent)`:
+- [x] 4.4 Implementar função `enqueue(event: AuditEvent)`:
   - Verificar se fila atingiu limite (1000)
   - Se limite atingido, descartar evento mais antigo (FIFO)
   - Log warning quando fila atinge 80% (800 eventos)
-- [ ] 4.5 Implementar função `dequeueBatch(limit: number)`:
+- [x] 4.5 Implementar função `dequeueBatch(limit: number)`:
   - Retornar até `limit` eventos ordenados por `createdAt`
   - Retornar array de `PendingEvent` com id, event, createdAt, retryCount
-- [ ] 4.6 Implementar função `deleteBatch(ids: number[])`:
+- [x] 4.6 Implementar função `deleteBatch(ids: number[])`:
   - Remover eventos pelos IDs após envio bem-sucedido
-- [ ] 4.7 Implementar função `count()`:
+- [x] 4.7 Implementar função `count()`:
   - Retornar número total de eventos na fila
-- [ ] 4.8 Implementar função `incrementRetryCount(ids: number[])`:
+- [x] 4.8 Implementar função `incrementRetryCount(ids: number[])`:
   - Incrementar contador de tentativas para controle de backoff
-- [ ] 4.9 Escrever testes unitários para todas as operações
-- [ ] 4.10 Testar persistência após reload da página
+- [x] 4.9 Escrever testes unitários para todas as operações
+- [x] 4.10 Testar persistência após reload da página
 
 ## Detalhes de Implementação
 
@@ -127,13 +127,22 @@ export async function enqueue(event: AuditEvent): Promise<void> {
 
 ## Critérios de Sucesso
 
-- [ ] Dexie.js integrado ao package telemetry
-- [ ] `enqueue` adiciona evento ao IndexedDB
-- [ ] `enqueue` descarta evento mais antigo quando fila cheia
-- [ ] `enqueue` loga warning quando fila atinge 80%
-- [ ] `dequeueBatch` retorna eventos ordenados por data de criação
-- [ ] `deleteBatch` remove eventos corretamente
-- [ ] `count` retorna número correto de eventos
-- [ ] Eventos persistem após F5/reload da página
-- [ ] Testes unitários passando
-- [ ] Máximo de 1000 eventos na fila respeitado
+- [x] Dexie.js integrado ao package telemetry
+- [x] `enqueue` adiciona evento ao IndexedDB
+- [x] `enqueue` descarta evento mais antigo quando fila cheia
+- [x] `enqueue` loga warning quando fila atinge 80%
+- [x] `dequeueBatch` retorna eventos ordenados por data de criação
+- [x] `deleteBatch` remove eventos corretamente
+- [x] `count` retorna número correto de eventos
+- [x] Eventos persistem após F5/reload da página
+- [x] Testes unitários passando
+- [x] Máximo de 1000 eventos na fila respeitado
+
+## Checklist de Conclusão
+
+- [x] 4.0 Implementar Fila Local com IndexedDB ✅ CONCLUÍDA
+  - [x] 4.1 Implementação completada
+  - [x] 4.2 Definição da tarefa, PRD e tech spec validados
+  - [x] 4.3 Análise de regras e conformidade verificadas
+  - [x] 4.4 Revisão de código completada
+  - [x] 4.5 Pronto para deploy

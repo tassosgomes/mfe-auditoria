@@ -210,7 +210,10 @@ export const flushQueue = async (): Promise<FlushResult> => {
 
   try {
     await sendEvents(pending.map((item) => item.event));
-    await localQueue.deleteBatch(pending.map((item) => item.id));
+    const idsToDelete = pending
+      .map((item) => item.id)
+      .filter((id): id is number => typeof id === "number");
+    await localQueue.deleteBatch(idsToDelete);
     lastFlushAt = new Date().toISOString();
     const remaining = await localQueue.count();
     return { sent: pending.length, failed: 0, remaining };
