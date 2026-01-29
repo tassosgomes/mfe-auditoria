@@ -1,0 +1,14 @@
+{
+  "name": "mfe-auditoria",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "packages/*/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "build": "npm run build --workspaces --if-present",
+    "preview": "npm run preview --workspaces --if-present"
+  }
+}

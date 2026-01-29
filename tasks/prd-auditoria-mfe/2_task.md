@@ -43,7 +43,7 @@ Configurar a estrutura de pastas do monorepo e a configuração base do Module F
 - [x] 2.3 Criar projeto Vite base para `apps/host` (porta 5173)
 - [x] 2.4 Criar projeto Vite base para `apps/mfe-users` (porta 5174)
 - [x] 2.5 Criar projeto Vite base para `apps/mfe-orders` (porta 5175)
-- [x] 2.6 Criar projeto TypeScript para `packages/telemetry`
+- [x] 2.6 Criar projeto TypeScript para `packages/libs/telemetry`
 - [x] 2.7 Configurar Module Federation no Host (vite.config.ts)
 - [x] 2.8 Configurar Module Federation nos Remotes (mfe-users, mfe-orders)
 - [x] 2.9 Configurar shared dependencies: react, react-dom, react-router-dom, @auditoria/telemetry

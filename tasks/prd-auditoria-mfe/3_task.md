@@ -1,5 +1,5 @@
 ---
-status: pending
+status: completed
 parallelizable: false
 blocked_by: ["2.0"]
 ---
@@ -32,25 +32,25 @@ Implementar o núcleo da biblioteca de telemetria que será compartilhada via Mo
 
 ## Subtarefas
 
-- [ ] 3.1 Criar estrutura do package `packages/telemetry`
-- [ ] 3.2 Definir interfaces e tipos em `src/types.ts`:
+- [x] 3.1 Criar estrutura do package `packages/libs/telemetry`
+- [x] 3.2 Definir interfaces e tipos em `src/types.ts`:
   - `AuditEvent`
   - `TelemetryConfig`
   - `FlushResult`
   - `QueueStatus`
-- [ ] 3.3 Implementar `src/telemetryClient.ts`:
+- [x] 3.3 Implementar `src/telemetryClient.ts`:
   - Função `initTelemetry(config: TelemetryConfig)`
   - Função `logScreenAccess(screenId, metadata?)`
   - Função `logNavigation(from, to)`
   - Função `logApiIntent(endpoint, metadata?)`
   - Função `logApiError(endpoint, error, metadata?)`
   - Função `getQueueStatus(): Promise<QueueStatus>`
-- [ ] 3.4 Implementar extração de dados do token Keycloak
-- [ ] 3.5 Implementar lógica de envio para API com fallback para fila local
-- [ ] 3.6 Criar `src/index.ts` com exports públicos
-- [ ] 3.7 Configurar build do package (tsconfig.json, vite.config.ts)
-- [ ] 3.8 Escrever testes unitários para telemetryClient
-- [ ] 3.9 Documentar API pública no README do package
+- [x] 3.4 Implementar extração de dados do token Keycloak
+- [x] 3.5 Implementar lógica de envio para API com fallback para fila local
+- [x] 3.6 Criar `src/index.ts` com exports públicos
+- [x] 3.7 Configurar build do package (tsconfig.json, vite.config.ts)
+- [x] 3.8 Escrever testes unitários para telemetryClient
+- [x] 3.9 Documentar API pública no README do package
 
 ## Detalhes de Implementação
 
@@ -121,12 +121,21 @@ function getUserFromToken(): { userId: string; email?: string; name?: string } {
 
 ## Critérios de Sucesso
 
-- [ ] Package `@auditoria/telemetry` compila sem erros
-- [ ] Todas as funções públicas exportadas e documentadas
-- [ ] `logScreenAccess` cria evento com tipo `SCREEN_ACCESS`
-- [ ] `logNavigation` cria evento com tipo `NAVIGATION`
-- [ ] Eventos contêm `timestamp` em formato ISO 8601
-- [ ] Eventos contêm `userId` extraído do token Keycloak
-- [ ] Quando API retorna erro, evento é passado para fila local
-- [ ] Testes unitários passando com cobertura > 80%
-- [ ] Console logs estruturados conforme padrão `[Telemetry]`
+- [x] Package `@auditoria/telemetry` compila sem erros
+- [x] Todas as funções públicas exportadas e documentadas
+- [x] `logScreenAccess` cria evento com tipo `SCREEN_ACCESS`
+- [x] `logNavigation` cria evento com tipo `NAVIGATION`
+- [x] Eventos contêm `timestamp` em formato ISO 8601
+- [x] Eventos contêm `userId` extraído do token Keycloak
+- [x] Quando API retorna erro, evento é passado para fila local
+- [x] Testes unitários passando com cobertura > 80%
+- [x] Console logs estruturados conforme padrão `[Telemetry]`
+
+## Checklist de Conclusão
+
+- [x] 3.0 Implementar Biblioteca de Telemetria (core) ✅ CONCLUÍDA
+  - [x] 3.1 Implementação completada
+  - [x] 3.2 Definição da tarefa, PRD e tech spec validados
+  - [x] 3.3 Análise de regras e conformidade verificadas
+  - [x] 3.4 Revisão de código completada
+  - [x] 3.5 Pronto para deploy
